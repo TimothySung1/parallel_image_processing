@@ -24,7 +24,20 @@ public class ParallelIPTester {
         //BufferedImage invertedImage = ParallelIP.invertImage(image, false);
         //ImageIO.write(invertedImage, "png", new File("images/inverted_among_us.png"));
 
-        BufferedImage image1 = ImageIO.read(new File("images/contacticon.png"));
-        ImageIO.write(ParallelIP.convertColor(image1, Color.WHITE), "png", new File("images/newcontacticon.png"));
+        // BufferedImage image1 = ImageIO.read(new File("images/contacticon.png"));
+        // ImageIO.write(ParallelIP.convertColor(image1, Color.WHITE), "png", new File("images/newcontacticon.png"));
+        BufferedImage image = ImageIO.read(new File("images/red-among-us-png.png"));
+        ImageIO.write(ParallelIP.invertImage(image, false, true), "png", new File("images/inverted/among.png"));
+
+        BufferedImage image1 = ImageIO.read(new File("images/red-among-us-png.png"));
+        ImageIO.write(ParallelIP.grayScaleImage(image1, true), "png", new File("images/grayscale/among.png"));
+
+        ImageIO.write(ParallelIP.convertColor(image, Color.BLUE.getRGB(), true), "png", new File("images/convert_color/among.png"));
+        ImageIO.write(ParallelIP.convertColor(image, Color.GREEN.getRGB(), false), "png", new File("images/convert_color/amongg.png"));
+        
+        BufferedImage greenAmong = ImageIO.read(new File("images/convert_color/amongg.png"));
+        
+        ImageIO.write(ParallelIP.convertColor(greenAmong, Color.GREEN.getRGB(), Color.RED.getRGB(), false), "png", new File("images/convert_color/amongconv.png"));
+        ImageIO.write(ParallelIP.convertColor(greenAmong, Color.GREEN.getRGB(), Color.BLACK.getRGB(), true), "png", new File("images/convert_color/amongconv2.png"));
     }
 }
