@@ -1,3 +1,4 @@
+package imageprocessing;
 import java.io.File;
 import java.io.IOException;
 import java.awt.Color;
@@ -10,6 +11,8 @@ import javax.imageio.ImageIO;
  */
 
  // TODO: make private methods that invert, grayscale, etc the int rgb and pass those directly into the threads
+ // TODO: image enhancing, compression, restoration ?
+ // TODO: for other image processing, use a framework ?
 
 public class ParallelIP {
 
@@ -226,6 +229,12 @@ public class ParallelIP {
         }
 
         return newImage;
+    }
+
+    public static BufferedImage rotate(BufferedImage image, int degree, boolean multithread) {
+
+        // BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        return null;
     }
 
     private static int[] getColors(int argb) {

@@ -1,3 +1,5 @@
+package imageprocessing;
+
 import java.util.function.Consumer;
 import java.awt.image.BufferedImage;
 

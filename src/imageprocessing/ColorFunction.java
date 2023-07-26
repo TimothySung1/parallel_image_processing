@@ -1,3 +1,4 @@
+package imageprocessing;
 import java.awt.Color;
 
 @FunctionalInterface
