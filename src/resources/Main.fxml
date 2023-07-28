@@ -4,22 +4,21 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Text?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1000.0" minWidth="1500.0" prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/17.0.8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1000.0" minWidth="1500.0" prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Parallel Image Processing" wrappingWidth="137.337890625" />
             <Button mnemonicParsing="false" text="Settings" />
             <Button mnemonicParsing="false" text="Help" />
-            <Button mnemonicParsing="false" text="Save" />
-            <Button mnemonicParsing="false" text="Save As" />
+            <Button mnemonicParsing="false" onAction="#save" text="Save" />
+            <Button mnemonicParsing="false" onAction="#saveAs" text="Save As" />
             <Button mnemonicParsing="false" text="Undo" />
             <Button mnemonicParsing="false" text="Redo" />
-            <Button mnemonicParsing="false" text="Select Image" />
+            <Button layoutX="506.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectFile" text="Select Image" />
          </children>
          <BorderPane.margin>
             <Insets top="5.0" />
@@ -27,10 +26,13 @@
       </HBox>
    </top>
    <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Processing Options" />
-         </children>
-      </VBox>
+      <fx:include source="options.fxml" />
    </right>
+   <center>
+      <StackPane fx:id="imgPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Select an Image" />
+         </children>
+      </StackPane>
+   </center>
 </BorderPane>

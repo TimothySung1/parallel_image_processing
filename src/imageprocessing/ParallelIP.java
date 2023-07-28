@@ -18,6 +18,13 @@ public class ParallelIP {
 
     private static int numThreads = 6;
 
+    public static BufferedImage copyImage(BufferedImage image, boolean multithread) {
+        int height = image.getHeight();
+        int width = image.getWidth();
+
+        return null;
+    }
+
     public static BufferedImage invertImage(BufferedImage image, boolean invertAlpha, boolean multithread) {
         int height = image.getHeight();
         int width = image.getWidth();
