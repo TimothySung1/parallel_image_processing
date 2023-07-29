@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
@@ -9,9 +11,13 @@
     <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Processing Options" textAlignment="CENTER" />
 
-        <CheckBox mnemonicParsing="false" text="Invert" />
-        <CheckBox mnemonicParsing="false" text="Grayscale" />
-        <CheckBox mnemonicParsing="false" text="Rotate" />
-        <CheckBox mnemonicParsing="false" text="Convert Color" />
+        <RadioButton mnemonicParsing="false" onAction="#invert" text="Invert">
+         <toggleGroup>
+            <ToggleGroup fx:id="optionsGroup" />
+         </toggleGroup></RadioButton>
+        <RadioButton mnemonicParsing="false" onAction="#grayscale" text="Grayscale" toggleGroup="$optionsGroup" />
+        <RadioButton mnemonicParsing="false" text="Rotate" toggleGroup="$optionsGroup" />
+        <RadioButton mnemonicParsing="false" text="Convert Color" toggleGroup="$optionsGroup" />
+      <CheckBox mnemonicParsing="false" onAction="#toggleMultithread" text="Multithread" />
     </children>
 </VBox>

@@ -1,4 +1,5 @@
 import controllers.Controller;
+import controllers.OptionsController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,7 +16,10 @@ public class GUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/resources/Main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/Main.fxml"));
+            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/resources/options.fxml"));
+            Parent root = loader.load();
+            loader2.load();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/resources/main.css").toExternalForm());
 
@@ -24,6 +28,9 @@ public class GUI extends Application {
 
             Controller.primaryStage = primaryStage;
             Controller.scene = scene;
+
+            OptionsController.controller = loader.getController();
+            Controller.optionsController = loader2.getController();
 
             primaryStage.show();
         } catch (Exception e) {

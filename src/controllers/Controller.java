@@ -16,11 +16,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.Buffer;
 
+// TODO: add settings class that contains information (multithread, live display, etc)
+// have method to transfer info to options controller
 
 public class Controller {
 
     public static Stage primaryStage;
     public static Scene scene;
+    public static OptionsController optionsController;
     private File srcPath;
     private File destPath;
     private BufferedImage srcImage;
@@ -79,6 +82,14 @@ public class Controller {
             imgPane.getChildren().add(imgView);
         }
 
+        // toggle all checkboxes (except multithread)
+
+        imgView.setImage(img);
+    }
+
+    public void updateDestImage(BufferedImage image) {
+        destImage = image;
+        img = SwingFXUtils.toFXImage(image, null);
         imgView.setImage(img);
     }
 
@@ -108,5 +119,12 @@ public class Controller {
     enum ImgType {
         // gif can be used but needs plugin
         JPEG, PNG, BMP
+    }
+
+    public BufferedImage getDestImage() {
+        return this.destImage;
+    }
+    public BufferedImage getSrcImage() {
+        return this.srcImage;
     }
 }
