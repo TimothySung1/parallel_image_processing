@@ -53,12 +53,12 @@ public class Controller {
         String ext = srcPath.getName().substring(srcPath.getName().length() - 5, srcPath.getName().length());
         int imgType = BufferedImage.TYPE_INT_RGB;;
         if (ext.equals(".jpeg")) {
-            type = ImgType.JPEG;
+            type = ImgType.jpeg;
         } else if (ext.substring(1, 5).equals(".png")) {
-            type = ImgType.PNG;
+            type = ImgType.png;
             imgType = BufferedImage.TYPE_INT_ARGB;
         } else if (ext.substring(1, 5).equals(".bmp")) {
-            type = ImgType.BMP;
+            type = ImgType.bmp;
         } else {
             System.out.println("Invalid extension");
         }
@@ -85,6 +85,7 @@ public class Controller {
         // toggle all checkboxes (except multithread)
 
         imgView.setImage(img);
+        // System.out.println(type);
     }
 
     public void updateDestImage(BufferedImage image) {
@@ -102,11 +103,13 @@ public class Controller {
         if (destPath == srcPath) {
             saveAs(e);
         } else {
+
             ImageIO.write(destImage, type.toString(), destPath);
         }
     }
 
     public void saveAs(ActionEvent e) throws IOException {
+        System.out.println(type);
         if (saver == null) {
             saver = new FileChooser();
             saver.setTitle("Save an Image");
@@ -118,7 +121,7 @@ public class Controller {
 
     enum ImgType {
         // gif can be used but needs plugin
-        JPEG, PNG, BMP
+        jpeg, png, bmp
     }
 
     public BufferedImage getDestImage() {

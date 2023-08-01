@@ -239,9 +239,75 @@ public class ParallelIP {
     }
 
     public static BufferedImage rotate(BufferedImage image, int degree, boolean multithread) {
-
+        if (degree == 90) {
+            return rotate90(image, multithread);
+        } else if (degree == 180) {
+            return rotate180(image, multithread);
+        } else if (degree == 270) {
+            return rotate270(image, multithread);
+        }
         // BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         return null;
+    }
+
+    public static BufferedImage rotate90(BufferedImage image, boolean multithread) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        BufferedImage newImage = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
+
+        if (!multithread) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int rgb = image.getRGB(x, y);
+                    newImage.setRGB(y, width - x - 1, rgb);
+                }
+            }
+        } else {
+
+        }
+
+        return newImage;
+    }
+
+    public static BufferedImage rotate180(BufferedImage image, boolean multithread) {
+        int height = image.getHeight();
+        int width = image.getWidth();
+
+        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        if (!multithread) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int rgb = image.getRGB(x, y);
+                    newImage.setRGB(width - x - 1, height - y - 1, rgb);
+                }
+            }
+        } else {
+
+        }
+
+        return newImage;
+    }
+
+    public static BufferedImage rotate270(BufferedImage image, boolean multithread) {
+        int height = image.getHeight();
+        int width = image.getWidth();
+
+        BufferedImage newImage = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
+
+        if (!multithread) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int rgb = image.getRGB(x, y);
+                    newImage.setRGB(height - y - 1, x, rgb);
+                }
+            }
+        } else {
+
+        }
+
+        return newImage;
     }
 
     private static int[] getColors(int argb) {
