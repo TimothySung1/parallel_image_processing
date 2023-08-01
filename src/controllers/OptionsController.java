@@ -57,7 +57,6 @@ public class OptionsController {
     @FXML
     private void toggleMultithread(ActionEvent e) {
         this.multithread = !multithread;
-        System.out.println(multithread);
     }
 
 

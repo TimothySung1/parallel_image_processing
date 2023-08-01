@@ -264,7 +264,32 @@ public class ParallelIP {
                 }
             }
         } else {
+            int numRows = height / numThreads;
+            int extra = height % numThreads;
 
+            PixelTransformer transformer = (x, y, w, h) -> {
+                int[] coords = new int[2];
+                coords[0] = y;
+                coords[1] = w - x - 1;
+                return coords;
+            };
+
+            Thread[] threads = new Thread[numThreads];
+            // create threads, grayscaling in their respective rows (divide process)
+            for (int i = 0; i < numThreads - 1; i++) {
+                threads[i] = new Thread(new RotateIPThread(transformer, newImage, image, i * numRows, numRows));
+            }
+            threads[numThreads - 1] = new Thread(new RotateIPThread(transformer, newImage, image, numRows * (numThreads - 1), numRows + extra));
+            for (int i = 0; i < numThreads; i++) {
+                threads[i].start();
+            }
+            for (int i = 0; i < numThreads; i++) {
+                try {
+                    threads[i].join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return newImage;
@@ -284,7 +309,32 @@ public class ParallelIP {
                 }
             }
         } else {
+            int numRows = height / numThreads;
+            int extra = height % numThreads;
 
+            PixelTransformer transformer = (x, y, w, h) -> {
+                int[] coords = new int[2];
+                coords[0] = w - x - 1;
+                coords[1] = h - y - 1;
+                return coords;
+            };
+
+            Thread[] threads = new Thread[numThreads];
+            // create threads, grayscaling in their respective rows (divide process)
+            for (int i = 0; i < numThreads - 1; i++) {
+                threads[i] = new Thread(new RotateIPThread(transformer, newImage, image, i * numRows, numRows));
+            }
+            threads[numThreads - 1] = new Thread(new RotateIPThread(transformer, newImage, image, numRows * (numThreads - 1), numRows + extra));
+            for (int i = 0; i < numThreads; i++) {
+                threads[i].start();
+            }
+            for (int i = 0; i < numThreads; i++) {
+                try {
+                    threads[i].join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return newImage;
@@ -304,7 +354,32 @@ public class ParallelIP {
                 }
             }
         } else {
+            int numRows = height / numThreads;
+            int extra = height % numThreads;
 
+            PixelTransformer transformer = (x, y, w, h) -> {
+                int[] coords = new int[2];
+                coords[0] = h - y - 1;
+                coords[1] = x;
+                return coords;
+            };
+
+            Thread[] threads = new Thread[numThreads];
+            // create threads, grayscaling in their respective rows (divide process)
+            for (int i = 0; i < numThreads - 1; i++) {
+                threads[i] = new Thread(new RotateIPThread(transformer, newImage, image, i * numRows, numRows));
+            }
+            threads[numThreads - 1] = new Thread(new RotateIPThread(transformer, newImage, image, numRows * (numThreads - 1), numRows + extra));
+            for (int i = 0; i < numThreads; i++) {
+                threads[i].start();
+            }
+            for (int i = 0; i < numThreads; i++) {
+                try {
+                    threads[i].join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return newImage;
