@@ -4,10 +4,11 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox id="processOptions" fx:id="box" prefHeight="213.0" prefWidth="272.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OptionsController">
+<VBox id="processOptions" fx:id="box" prefHeight="318.0" prefWidth="272.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OptionsController">
     <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Processing Options" textAlignment="CENTER" />
       <RadioButton mnemonicParsing="false" onAction="#original" selected="true" text="Original">
@@ -17,8 +18,17 @@
 
         <RadioButton mnemonicParsing="false" onAction="#invert" text="Invert" toggleGroup="$optionsGroup" />
         <RadioButton mnemonicParsing="false" onAction="#grayscale" text="Grayscale" toggleGroup="$optionsGroup" />
-        <RadioButton mnemonicParsing="false" onAction="#toggleRotate" text="Rotate" toggleGroup="$optionsGroup" />
+        <RadioButton fx:id="rotateButton" mnemonicParsing="false" text="Rotate" toggleGroup="$optionsGroup" />
+      <HBox fx:id="rotateBox" disable="true" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+         <children>
+            <RadioButton mnemonicParsing="false" text="90°" />
+            <RadioButton mnemonicParsing="false" text="180°" />
+            <RadioButton mnemonicParsing="false" text="270°" />
+         </children>
+      </HBox>
         <RadioButton mnemonicParsing="false" text="Convert Color" toggleGroup="$optionsGroup" />
+      <RadioButton mnemonicParsing="false" text="Resize" />
+      <RadioButton mnemonicParsing="false" text="Contrast" />
       <CheckBox mnemonicParsing="false" onAction="#toggleMultithread" text="Multithread" />
     </children>
 </VBox>

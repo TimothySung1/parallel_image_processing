@@ -32,6 +32,8 @@ public class GUI extends Application {
             OptionsController.controller = loader.getController();
             Controller.optionsController = loader2.getController();
 
+            Controller.optionsController.initialize();
+
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
