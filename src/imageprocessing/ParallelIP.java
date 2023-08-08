@@ -385,6 +385,77 @@ public class ParallelIP {
         return newImage;
     }
 
+    // contrast between -255 and 255
+    public static BufferedImage setContrast(BufferedImage image, int contrast, boolean multithread) {
+        // determine contrast
+        double contrastCorrectionFactor = 259 * (contrast + 255.0) / (255 * (259 - contrast));
+        RGBConverter converter = (rgb) -> {
+            int a = (rgb >> 24) & 0xff;
+            int r = (rgb >> 16) & 0xff;
+            int g = (rgb >> 8) & 0xff;
+            int b = rgb & 0xff;
+
+            // calculate altered rgb value
+            int newR = (int) (contrastCorrectionFactor * (r - 128) + 128);
+            int newG = (int) (contrastCorrectionFactor * (g - 128) + 128);
+            int newB = (int) (contrastCorrectionFactor * (b - 128) + 128);
+
+            // truncate rgb values to the range 0-255 inclusive
+            if (newR > 255) newR = 255;
+            if (newG > 255) newG = 255;
+            if (newB > 255) newB = 255;
+
+            if (newR < 0) newR = 0;
+            if (newG < 0) newG = 0;
+            if (newB < 0) newB = 0;
+
+            return (a << 24) | (newR << 16) | (newG << 8) | (newB);
+        };
+
+        int height = image.getHeight();
+        int width = image.getWidth();
+        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        if (!multithread) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int rgb = image.getRGB(x, y);
+                    newImage.setRGB(x, y, converter.convert(rgb));
+                }
+            }
+        } else {
+            int numRows = height / numThreads;
+            int extra = height % numThreads;
+
+            Thread[] threads = new Thread[numThreads];
+            // create threads, grayscaling in their respective rows (divide process)
+            for (int i = 0; i < numThreads - 1; i++) {
+                threads[i] = new Thread(new IPThread(converter, newImage, image, i * numRows, numRows));
+            }
+            threads[numThreads - 1] = new Thread(new IPThread(converter, newImage, image, numRows * (numThreads - 1), numRows + extra));
+            for (int i = 0; i < numThreads; i++) {
+                threads[i].start();
+            }
+            for (int i = 0; i < numThreads; i++) {
+                try {
+                    threads[i].join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return newImage;
+    }
+
+    private static void processConversion(int height, RGBConverter converter) {
+
+    }
+
+    private static void processTransformation(int height, PixelTransformer transformer) {
+        
+    }
+
     private static int[] getColors(int argb) {
         int alpha = (argb >> 24) & 0xff;
         int r = (argb >> 16) & 0xff;

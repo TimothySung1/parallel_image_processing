@@ -6,7 +6,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,6 +31,18 @@ public class OptionsController {
 
     @FXML
     private HBox rotateBox;
+
+    @FXML
+    private HBox contrastBox;
+
+    @FXML
+    private RadioButton contrastButton;
+
+    @FXML
+    private Slider contrastSlider;
+
+    @FXML
+    private Label contrastLabel;
 
 
     @FXML
@@ -77,12 +91,14 @@ public class OptionsController {
     }
 
     @FXML
-    private void openContrast(ActionEvent e) {
-
+    private void applyContrast(ActionEvent e) {
+        BufferedImage src = controller.getSrcImage();
+        BufferedImage dest = ParallelIP.setContrast(src, (int) contrastSlider.getValue(), multithread);
+        controller.updateDestImage(dest);
     }
 
     @FXML
-    private void openColorConverter(ActionEvent e) {
+    private void convertColor(ActionEvent e) {
 
     }
 
@@ -100,6 +116,25 @@ public class OptionsController {
                 } else {
                     rotateBox.setDisable(true);
                 }
+            }
+        });
+
+        contrastButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean prevSelected, Boolean nowSelected) {
+                if (nowSelected) {
+                    contrastBox.setDisable(false);
+                } else {
+                    contrastBox.setDisable(true);
+                }
+            }
+        });
+
+        contrastSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                int contrast = (int) contrastSlider.getValue();
+                contrastLabel.setText(Integer.toString(contrast));
             }
         });
     }

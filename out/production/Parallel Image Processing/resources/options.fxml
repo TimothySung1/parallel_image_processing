@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -19,16 +22,26 @@
         <RadioButton mnemonicParsing="false" onAction="#invert" text="Invert" toggleGroup="$optionsGroup" />
         <RadioButton mnemonicParsing="false" onAction="#grayscale" text="Grayscale" toggleGroup="$optionsGroup" />
         <RadioButton fx:id="rotateButton" mnemonicParsing="false" text="Rotate" toggleGroup="$optionsGroup" />
-      <HBox fx:id="rotateBox" disable="true" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+      <HBox fx:id="rotateBox" alignment="CENTER" disable="true" prefHeight="45.0" prefWidth="272.0" spacing="30.0">
          <children>
-            <RadioButton mnemonicParsing="false" text="90°" />
-            <RadioButton mnemonicParsing="false" text="180°" />
-            <RadioButton mnemonicParsing="false" text="270°" />
+            <RadioButton mnemonicParsing="false" onAction="#rotate90" text="90°">
+               <toggleGroup>
+                  <ToggleGroup fx:id="rotateGroup" />
+               </toggleGroup></RadioButton>
+            <RadioButton mnemonicParsing="false" onAction="#rotate180" text="180°" toggleGroup="$rotateGroup" />
+            <RadioButton mnemonicParsing="false" onAction="#rotate270" text="270°" toggleGroup="$rotateGroup" />
          </children>
       </HBox>
-        <RadioButton mnemonicParsing="false" text="Convert Color" toggleGroup="$optionsGroup" />
-      <RadioButton mnemonicParsing="false" text="Resize" />
-      <RadioButton mnemonicParsing="false" text="Contrast" />
+        <RadioButton disable="true" mnemonicParsing="false" text="Convert Color" toggleGroup="$optionsGroup" />
+      <RadioButton disable="true" mnemonicParsing="false" text="Resize" toggleGroup="$optionsGroup" />
+      <RadioButton fx:id="contrastButton" mnemonicParsing="false" text="Contrast" toggleGroup="$optionsGroup" />
+      <HBox fx:id="contrastBox" alignment="CENTER" disable="true" prefHeight="49.0" prefWidth="272.0" spacing="20.0">
+         <children>
+            <Slider fx:id="contrastSlider" blockIncrement="5.0" majorTickUnit="255.0" max="255.0" min="-255.0" minorTickCount="1" showTickLabels="true" />
+            <Label fx:id="contrastLabel" text="0" />
+            <Button mnemonicParsing="false" onAction="#applyContrast" text="Apply" />
+         </children>
+      </HBox>
       <CheckBox mnemonicParsing="false" onAction="#toggleMultithread" text="Multithread" />
     </children>
 </VBox>
